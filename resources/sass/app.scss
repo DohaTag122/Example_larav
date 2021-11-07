@@ -1,0 +1,22 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+$navBar:#1E2632;
+$background : #f7f8f9;
+$text : #3A4C42;
+body{
+    background-color: $background;
+    color: $text ;
+}
+.navbar{
+    background-color: $navBar;
+    box-shadow: 0 5px 10px 0 rgba(204,204,204,0.3)  ;
+    a{
+        color: #fff;
+    }
+}
