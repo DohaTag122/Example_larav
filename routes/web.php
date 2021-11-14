@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\UserController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CustomAuthController;
+use App\Providers\FortifyServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +16,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
+// Auth::routes();
+
 Route::get('/', function () {
     return view('index');
 });
+
+
+
+
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
-
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+
+// Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+
+
+
+//Admin Routes
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function() {
+
+    Route::resource('/users', 'Admin\UserController');   
+ });
+
+
