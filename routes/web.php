@@ -33,11 +33,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name(
 
 // Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-
+// login
 
 //Admin Routes
-Route::prefix('admin')->middleware('auth')->name('admin.')->group(function() {
-
+Route::prefix('admin')->middleware(['auth','auth.isAdmin'])->name('admin.')->group(function() {
     Route::resource('/users', 'Admin\UserController');   
  });
 

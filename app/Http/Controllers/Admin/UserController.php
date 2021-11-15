@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
@@ -34,9 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        // if(Gate::allows('is-admin')){
+        
         return view('admin.users.create',['roles' => Role::all()]);
-        // }
     }
 
     /**
@@ -46,10 +46,13 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserRequest $request)
-    {
-        $validationData =$request->validated();
-        $user =User::create($validationData);
+    { // the request apply the rules in StoreUserRequest before enter the body of method
+        // $validationData =$request->validated(); 
+        // $user =User::create($validationData);
+        $newUser = new  CreateNewUser();
+        $user=$newUser->create($request->only(['name','email','password','password_confirmation']));
         $user->roles()->sync($request->roles);
+         dd($user);
         $request->session()->flash('success','You have Add the User');  // falsh in swssion once then deleted 
 
         return redirect(route('admin.users.index'));

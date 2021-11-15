@@ -43,23 +43,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-public function setPasswordAttribute($password)
-{
-$this->attributes['password']=Hash::make($password);
-}
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
 
     public function roles()
     {
-        return $this->belongsToMany(related:'App\Models\Role');
-        
+        return $this->belongsToMany(related: 'App\Models\Role');
     }
 
-    public function hasAnyRloe(String $role)
+    public function hasAnyRole(String $role)
     {
-        return null !== $this->roles()->where('name',$role)->first;
+        return null !== $this->roles()->where('name', $role)->first();
     }
-    public function hasAnyRloes(array $role)
+    public function hasAnyRoles(array $role)
     {
-        return null !== $this->roles()->whereIn('name',$role)->first;
+        return null !== $this->roles()->whereIn('name', $role)->first();
     }
 }
