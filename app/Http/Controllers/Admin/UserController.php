@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
@@ -52,7 +53,7 @@ class UserController extends Controller
         $newUser = new  CreateNewUser();
         $user=$newUser->create($request->only(['name','email','password','password_confirmation']));
         $user->roles()->sync($request->roles);
-         dd($user);
+        // Password::sendResetLink($request->only(['email']));
         $request->session()->flash('success','You have Add the User');  // falsh in swssion once then deleted 
 
         return redirect(route('admin.users.index'));

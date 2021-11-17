@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CustomAuthController;
 use App\Providers\FortifyServiceProvider;
+use App\Http\Controllers\User\Profile;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,5 +40,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name(
 Route::prefix('admin')->middleware(['auth','auth.isAdmin'])->name('admin.')->group(function() {
     Route::resource('/users', 'Admin\UserController');   
  });
+
+//  user Routes
+Route::prefix('user')->middleware(['auth'])->name('user.')->group(function() {
+    Route::get('/profile', 'User\Profile')->name('profile');   
+ });
+
 
 
